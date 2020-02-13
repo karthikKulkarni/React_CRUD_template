@@ -10,41 +10,12 @@ import {
 import { Post, UpdatePostInput, DeletePostInput, AllPostsData } from '../../store/Posts/types';
 import { StandardApiState, GlobalState } from '../../store';
 import { Button } from '../../components/Button';
+import { ListContainer, RowItem } from '../../components/List';
+import { Link, Redirect } from 'react-router-dom';
 
 const Container = styled.div`
   height: 100%;
   width: 100%;
-`;
-
-const ListContainer = styled.div`
-  column-count: 1;
-  padding: 1em;
-
-  @media only screen and (min-width: 768px) {
-    column-count: 2;
-  }
-
-  @media only screen and (min-width: 1224px) {
-    column-count: 3;
-  }
-`;
-
-const RowItem = styled.p`
-  text-align: left;
-  border: 2px solid black;
-
-  &:hover {
-    border: 2px solid red;
-    border-radius: 15px;
-  }
-
-  &:nth-child(odd) {
-    background: aqua;
-  }
-
-  &:nth-child(even) {
-    background: tomato;
-  }
 `;
 
 export interface Props {
@@ -58,6 +29,10 @@ export interface Props {
 }
 
 export class __LandingPage extends Component<Props> {
+  state = {
+    redirect: '/',
+  };
+
   componentDidMount() {
     this.props.allPostsRequest && this.props.allPostsRequest();
   }
@@ -77,16 +52,25 @@ export class __LandingPage extends Component<Props> {
     this.props.deletePostRequest && this.props.deletePostRequest(deletePost);
   };
 
+  handleOnClick = () => {
+    // some action...
+    // then redirect
+    this.setState({ redirect: '/detailedPost' });
+  };
+
   render() {
     const { posts } = this.props;
 
-    console.log('posts', posts);
+    if (this.state.redirect !== '/') {
+      return <Redirect push to={this.state.redirect} />;
+    }
+
     return (
       <Container>
         <Button>Normal Button</Button>
         <Button primary={true}>Primary Button</Button>
         <ListContainer className="list_container">
-          {posts && posts.map(item => <RowItem> {item.body}</RowItem>)}
+          {posts && posts.map(item => <RowItem onClick={() => this.handleOnClick()}>{item.title}</RowItem>)}
         </ListContainer>
       </Container>
     );

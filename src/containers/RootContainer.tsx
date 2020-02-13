@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import LandingPage from '../screens/Landing/LandingPage';
+import { Router } from 'react-router-dom';
+import history from '../navigation/history';
+import Routes from '../navigation';
 
 export default class RootContainer extends Component {
   render() {
     return (
-      <div>
-        <LandingPage />
-      </div>
+      <Router history={history}>
+        <Routes />
+      </Router>
     );
   }
 }
