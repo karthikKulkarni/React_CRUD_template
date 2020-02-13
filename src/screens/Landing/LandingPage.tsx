@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import {
   allPostsRequest,
   addPostsRequest,
@@ -12,17 +12,37 @@ import { StandardApiState, GlobalState } from '../../store';
 import { Button } from '../../components/Button';
 
 const Container = styled.div`
-  height: 100vh;
-  background: aqua;
+  height: 100%;
   width: 100%;
 `;
 
 const ListContainer = styled.div`
-  background: 'red';
+  column-count: 1;
+  padding: 1em;
+
+  @media only screen and (min-width: 768px) {
+    column-count: 2;
+  }
+
+  @media only screen and (min-width: 1224px) {
+    column-count: 3;
+  }
 `;
 
 const RowItem = styled.p`
+  text-align: left;
+  border: 2px solid black;
+
+  &:hover {
+    border: 2px solid red;
+    border-radius: 15px;
+  }
+
   &:nth-child(odd) {
+    background: aqua;
+  }
+
+  &:nth-child(even) {
     background: tomato;
   }
 `;
@@ -66,9 +86,8 @@ export class __LandingPage extends Component<Props> {
         <Button>Normal Button</Button>
         <Button primary={true}>Primary Button</Button>
         <ListContainer className="list_container">
-          {posts && posts.map(item => <RowItem>{item.body}</RowItem>)}
+          {posts && posts.map(item => <RowItem> {item.body}</RowItem>)}
         </ListContainer>
-        ;
       </Container>
     );
   }
