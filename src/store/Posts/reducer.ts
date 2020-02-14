@@ -138,7 +138,7 @@ export function postsReducer(state = initPost, action: PostTypes): Post[] {
       return [...action.posts];
 
     case 'ADD_POST_SUCCESS':
-      const newPost: Post = _.get(action, 'newPost.post', {});
+      const newPost: any = action.newPost;
       newPost.id = _.get(action, 'newPost.id', 0);
       return [...state, newPost];
 

@@ -16,6 +16,12 @@ const PostHeader = styled.h2`
   padding: 1rem;
   background: #f2aa7e;
   border-radius: 5px;
+
+  &::first-letter {
+    font-size: 200%;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
 `;
 
 const PostBody = styled.p`
@@ -24,6 +30,14 @@ const PostBody = styled.p`
   margin-top: 2em;
   background: #f3c969;
   border-radius: 5px;
+  padding: 1em;
+
+  &::first-letter {
+    text-transform: capitalize;
+    font-size: 200%;
+    color: #8a2be2;
+    font-weight: bold;
+  }
 `;
 
 class DetailedPostPage extends Component<Props> {

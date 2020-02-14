@@ -17,18 +17,19 @@ export function* getPostsRequest(api: GetPostsApi) {
 }
 
 export function* addPostsRequest(api: GetPostsApi, action: any) {
-  try {
-    const response = yield call(api.addNewPost, action.input);
-    const result = response.data;
-    console.log('response', response);
-    if (response.ok) {
-      yield put(actions.addPostsSuccess(result));
-    } else {
-      yield put(actions.addPostsFailure(response.problem));
-    }
-  } catch (error) {
-    yield put(actions.addPostsFailure(error));
-  }
+  yield put(actions.addPostsSuccess({ id: 1010, ...action.input.post }));
+  // try {
+  //   const response = yield call(api.addNewPost, action.input);
+  //   const result = response.data;
+  //   console.log('response', response);
+  //   if (response.ok) {
+  //     yield put(actions.addPostsSuccess(result));
+  //   } else {
+  //     yield put(actions.addPostsFailure(response.problem));
+  //   }
+  // } catch (error) {
+  //   yield put(actions.addPostsFailure(error));
+  // }
 }
 
 export function* updatePostRequest(api: GetPostsApi, action: any) {
@@ -40,6 +41,7 @@ export function* updatePostRequest(api: GetPostsApi, action: any) {
     if (response.ok) {
       yield put(actions.updatePostsSuccess(result));
     } else {
+      // yield put(actions.addPostsSuccess({ id: 1010, ...action.input.post }));
       yield put(actions.updatePostsFailure(response.problem));
     }
   } catch (error) {
