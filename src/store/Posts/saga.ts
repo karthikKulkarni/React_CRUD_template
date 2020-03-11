@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { GetPostsApi } from '../../services/GetPostsApi';
+import GetPostsApi from '../../services/GetPostsApi';
 import * as actions from './action';
 
 export function* getPostsRequest(api: GetPostsApi) {

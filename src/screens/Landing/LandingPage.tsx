@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { RouteComponentProps } from 'react-router-dom';
 import {
   allPostsRequest,
   addPostsRequest,
   updatePostRequest,
   deletePostRequest,
 } from '../../store/Posts/action';
-import { Post, UpdatePostInput, DeletePostInput, AllPostsData } from '../../store/Posts/types';
-import { StandardApiState, GlobalState } from '../../store';
-import { Button } from '../../components/Button';
+import { Post, AllPostsData } from '../../store/Posts/types';
+import { GlobalState } from '../../store';
+import { StandardApiState } from '../../store/types';
+import Button from '../../components/Button';
 import { ListContainer, RowItem } from '../../components/List';
-import { RouteComponentProps } from 'react-router-dom';
 
 const Container = styled.div`
   height: 100%;
@@ -28,12 +29,7 @@ export interface Props extends RouteComponentProps {
 }
 
 export class __LandingPage extends Component<Props> {
-  state = {
-    redirect: '/',
-  };
-
   componentDidMount() {
-    console.log('inside componentDidCmount');
     if (this.props.posts.length <= 0) {
       this.props.allPostsRequest && this.props.allPostsRequest();
     }
@@ -46,10 +42,9 @@ export class __LandingPage extends Component<Props> {
   render() {
     const { posts } = this.props;
 
-    console.log('posts from state', posts);
     return (
       <Container>
-        <Button primary={true} onClick={() => this.handleOnClick('/addPost')}>
+        <Button primary onClick={() => this.handleOnClick('/addPost')}>
           Add Post
         </Button>
         <ListContainer className="list_container">

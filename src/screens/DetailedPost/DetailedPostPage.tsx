@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Post } from '../../store/Posts/types';
 import styled from 'styled-components';
+import { Post } from '../../store/Posts/types';
 
 export interface Props extends RouteComponentProps<any>, React.Props<any> {}
 
@@ -40,17 +40,15 @@ const PostBody = styled.p`
   }
 `;
 
-class DetailedPostPage extends Component<Props> {
-  render() {
-    // @ts-ignore
-    const { post }: Post = this.props.location.state;
-    return (
-      <Container className="details_container">
-        <PostHeader>{post.title}</PostHeader>
-        <PostBody>{post.body}</PostBody>
-      </Container>
-    );
-  }
-}
+const DetailedPostPage = (props: Props) => {
+  // @ts-ignore
+  const { post }: Post = props.location.state;
+  return (
+    <Container className="details_container">
+      <PostHeader>{post.title}</PostHeader>
+      <PostBody>{post.body}</PostBody>
+    </Container>
+  );
+};
 
 export default DetailedPostPage;

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {
   Post,
   AllPostsType,
@@ -10,11 +11,10 @@ import {
   DeletedPostData,
   PostTypes,
 } from './types';
-import { StandardApiState } from '..';
-import { createEmptyState } from '../util';
-import _ from 'lodash';
+import { StandardApiState } from '../types';
+import createEmptyState from '../util';
 
-//Get Posts Reducer
+// Get Posts Reducer
 const initialData: AllPostsData = [];
 const initialState = createEmptyState(initialData);
 
@@ -37,7 +37,7 @@ export function allPostsReducer(state = initialState, action: AllPostsType): Sta
   }
 }
 
-//Add Post Reducer
+// Add Post Reducer
 const addPostInitData: AddPostData = {
   id: 0,
   post: {
@@ -64,7 +64,7 @@ export function addPostsReducer(
   }
 }
 
-//Update Post Reducer
+// Update Post Reducer
 const updatePostInitData: UpdatedPostData = {
   id: 0,
   post: {
@@ -97,7 +97,7 @@ export function updatePostsReducer(
   }
 }
 
-//Update Post Reducer
+// Update Post Reducer
 const deletePostInitData: DeletedPostData = {
   post: {
     userId: 0,
@@ -129,7 +129,7 @@ export function deletePostsReducer(
   }
 }
 
-//Custom posts list
+// Custom posts list
 
 const initPost: Post[] = [];
 export function postsReducer(state = initPost, action: PostTypes): Post[] {

@@ -1,7 +1,7 @@
 import * as actions from '../action';
 import * as reducers from '../reducer';
 import { AllPostsInput, Post, AllPostsData, AllPostsType } from '../types';
-import { createEmptyState } from '../../util';
+import createEmptyState from '../../util';
 
 describe('actions', () => {
   describe('Get all the posts', () => {

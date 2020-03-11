@@ -1,7 +1,7 @@
 import apisauce, { ApisauceInstance, ApiResponse } from 'apisauce';
 import { Post, AllPostsType, AddPostsType, UpdatePostType, DeletePostType } from '../store/Posts/types';
 
-export class GetPostsApi {
+export default class GetPostsApi {
   api: ApisauceInstance;
 
   constructor(baseURL = 'https://jsonplaceholder.typicode.com') {

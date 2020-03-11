@@ -1,6 +1,6 @@
-import { StandardApiState } from '.';
+import { StandardApiState } from './types';
 
-export function createEmptyState<T>(data: T, dateFetched?: Date): StandardApiState<T> {
+export default function createEmptyState<T>(data: T, dateFetched?: Date): StandardApiState<T> {
   return {
     data,
     status: '',

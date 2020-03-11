@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const Button = styled('button')<{ primary?: boolean }>`
+const Button = styled('button')<{ primary?: boolean }>`
   background: transparent;
   border-radius: 3px;
   border: 2px solid palevioletred;
@@ -15,3 +15,5 @@ export const Button = styled('button')<{ primary?: boolean }>`
       color: white;
     `}
 `;
+
+export default Button;

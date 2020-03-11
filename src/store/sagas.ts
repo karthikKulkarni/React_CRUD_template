@@ -1,11 +1,11 @@
 import { takeLatest, all } from 'redux-saga/effects';
-import { GetPostsApi } from '../services/GetPostsApi';
+import GetPostsApi from '../services/GetPostsApi';
 /* ------------- Types ---------  ---- */
 
 /* ------------- Sagas ------------- */
 import { getPostsRequest, addPostsRequest, updatePostRequest, deletePostRequest } from './Posts/saga';
 
-//Add individual sagas here
+// Add individual sagas here
 
 /* ------------- API ------------- */
 
@@ -17,7 +17,7 @@ const getPostApi = new GetPostsApi();
 
 export default function* root() {
   yield all([
-    //make all saga generators
+    // make all saga generators
     takeLatest('POSTS_REQUEST', getPostsRequest, getPostApi),
     takeLatest('ADD_POST_REQUEST', addPostsRequest, getPostApi),
     takeLatest('UPDATE_POST_REQUEST', updatePostRequest, getPostApi),
