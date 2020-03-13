@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Formik } from 'formik';
 import styled from 'styled-components';
 import { RouteComponentProps } from 'react-router-dom';
+import * as Yup from 'yup';
 import { addPostsRequest } from '../../store/Posts/action';
 import { Post } from '../../store/Posts/types';
 
@@ -18,6 +20,11 @@ const TitleLabel = styled.label`
   text-align: left;
 `;
 
+const Text = styled.p`
+  font-family: 'Raleway', sans-serif;
+  color: ${props => props.color || '#4d4d4d'};
+`;
+
 export interface Props extends RouteComponentProps {
   addPostsRequest?: typeof addPostsRequest;
 }
@@ -30,43 +37,65 @@ export class __AddPostPage extends Component<Props> {
     this.props.addPostsRequest && this.props.addPostsRequest(newPost);
   };
 
-  handleBodyChange = (event: any) => {
-    this.setState({
-      body: event.target.value,
-    });
-  };
-
   handleOnClick = (path: string, item?: Post) => {
     this.props.history.push(path, { post: item });
   };
 
-  handleTitleChange = (event: any) => {
-    this.setState({
-      title: event.target.value,
-    });
-  };
-
-  handleSubmit = (event: any) => {
+  handleSubmit = () => {
     this.createPost();
     this.handleOnClick('/');
-    event.preventDefault();
   };
 
   render() {
     return (
-      <Container onSubmit={this.handleSubmit}>
-        <TitleLabel>
-          Title
-          <input type="text" value={this.state.title} onChange={this.handleTitleChange} />
-        </TitleLabel>
+      <Formik
+        initialValues={{ title: '', description: '' }}
+        validationSchema={Yup.object({
+          title: Yup.string()
+            .min(2)
+            .max(6)
+            .required('Title is mandatory'),
+          description: Yup.string().required('Description is required'),
+        })}
+        onSubmit={values => {
+          this.setState({
+            title: values.title,
+            body: values.description,
+          });
 
-        <TitleLabel>
-          Description
-          <input type="text" value={this.state.body} onChange={this.handleBodyChange} />
-        </TitleLabel>
-
-        <input type="submit" value="Add Post" />
-      </Container>
+          this.handleSubmit();
+        }}
+        render={({ touched, errors, values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+          <Container onSubmit={handleSubmit}>
+            <h1>Adding new Post</h1>
+            <TitleLabel>
+              Title
+              <input
+                type="text"
+                value={values.title}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                name="title"
+              />
+            </TitleLabel>
+            {touched.title && errors.title && <Text color="red">{errors.title}</Text>}
+            <TitleLabel>
+              Description
+              <input
+                type="text"
+                value={values.description}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                name="description"
+              />
+            </TitleLabel>
+            {touched.description && errors.description && <Text color="red">{errors.description}</Text>}
+            <button type="submit" disabled={isSubmitting}>
+              Add Post
+            </button>
+          </Container>
+        )}
+      />
     );
   }
 }
