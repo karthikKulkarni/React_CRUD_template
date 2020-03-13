@@ -1,5 +1,6 @@
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export default (rootReducer: any, rootSaga: any) => {
   /* ------------- Redux Configuration ------------- */
@@ -13,7 +14,8 @@ export default (rootReducer: any, rootSaga: any) => {
   /* ------------- Assemble Middleware ------------- */
   enhancers.push(applyMiddleware(...middleware));
 
-  const composeEnhancers = compose;
+  /* ------------- compose with Redux Devtool ------------- */
+  const composeEnhancers = composeWithDevTools || compose;
 
   const store = createStore(rootReducer, composeEnhancers(...enhancers));
 
